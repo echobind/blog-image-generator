@@ -7,6 +7,17 @@ const Home = () => {
   const [title, setTitle] = React.useState('')
   const [tagline, setTagline] = React.useState('')
   const [generatedImage, setGeneratedImage] = React.useState('')
+  const canvasRef = React.useRef<null | HTMLCanvasElement>()
+  const imgRef = React.useRef<null | HTMLImageElement>()
+
+  function generateImage() {
+    console.log('drawing image')
+    const canvas = canvasRef.current
+    const img = imgRef.current
+    console.log('img', img)
+    const ctx = canvas && canvas.getContext('2d')
+    ctx.drawImage(img, 0, 0);
+  }
 
   return (
     <div className='main-app'>
@@ -25,8 +36,11 @@ const Home = () => {
 
         <div className="row">
           {generatedImage &&
-            <img src={generatedImage} alt="generated social image." />
+            <a href={generatedImage} download="test.png">
+              <img ref={imgRef} src={generatedImage} alt="generated social image." />
+            </a>
           }
+          <canvas ref={canvasRef} width="762" height="402" />
           <form onSubmit={async (e) => {
             e.preventDefault()
             try {
@@ -41,7 +55,8 @@ const Home = () => {
 
               const data = await response.json();
               // set image url
-              setGeneratedImage(data.url)
+              await setGeneratedImage(data.url)
+              generateImage()
 
             } catch (error) {
               console.error(error, 'oops')
