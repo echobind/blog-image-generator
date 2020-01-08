@@ -10,13 +10,14 @@ const Home = () => {
   const canvasRef = React.useRef<null | HTMLCanvasElement>()
   const imgRef = React.useRef<null | HTMLImageElement>()
 
-  function generateImage() {
+  function drawImage() {
     console.log('drawing image')
     const canvas = canvasRef.current
-    const img = imgRef.current
-    console.log('img', img)
     const ctx = canvas && canvas.getContext('2d')
-    ctx.drawImage(img, 0, 0);
+    const img = imgRef.current
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0);
+    }
   }
 
   return (
@@ -29,18 +30,12 @@ const Home = () => {
       <Nav />
 
       <div className="hero">
-        <h1 className="title">Welcome to Next.js!</h1>
+        <h1 className="title">Echobind's Blog Image Generator</h1>
         <p className="description">
           To get started, edit <code>pages/index.js</code> and save to reload.
       </p>
 
         <div className="row">
-          {generatedImage &&
-            <a href={generatedImage} download="test.png">
-              <img ref={imgRef} src={generatedImage} alt="generated social image." />
-            </a>
-          }
-          <canvas ref={canvasRef} width="762" height="402" />
           <form onSubmit={async (e) => {
             e.preventDefault()
             try {
@@ -56,8 +51,8 @@ const Home = () => {
               const data = await response.json();
               // set image url
               await setGeneratedImage(data.url)
-              generateImage()
 
+              drawImage()
             } catch (error) {
               console.error(error, 'oops')
 
@@ -68,6 +63,10 @@ const Home = () => {
             <input type="text" placeholder="hello" value={tagline} onChange={(e) => setTagline(e.target.value)} />
             <button type="submit">Generate image</button>
           </form>
+
+          <img style={{ display: 'none' }} ref={imgRef} src={generatedImage} alt="generated social image." />
+          <canvas ref={canvasRef} width="1280" height="669" />
+
         </div>
       </div>
 

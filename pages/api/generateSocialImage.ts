@@ -25,20 +25,20 @@ interface Config {
 function generateSocialImage({
   title,
   tagline,
-  cloudName = 'dobfxs62e',
+  cloudName = 'jsjoeio',
   imagePublicID = 'example-template',
   cloudinaryUrlBase = 'https://res.cloudinary.com',
-  titleFont = 'arial',
+  titleFont = 'Lato',
   titleExtraConfig = '',
   taglineExtraConfig = '',
-  taglineFont = 'arial',
+  taglineFont = 'Lato',
   imageWidth = 1280,
   imageHeight = 669,
   textAreaWidth = 760,
   textLeftOffset = 480,
   titleBottomOffset = 254,
   taglineTopOffset = 445,
-  textColor = '000000',
+  textColor = 'ffffff',
   titleFontSize = 64,
   taglineFontSize = 48,
   version = null,
@@ -53,6 +53,8 @@ function generateSocialImage({
   ].join(',');
 
   // configure the title text
+  // Check Cloudinary docs for more info:
+  // https://cloudinary.com/documentation/image_transformations#styling_parameters
   const titleConfig = [
     `w_${textAreaWidth}`,
     'c_fit',
@@ -60,7 +62,7 @@ function generateSocialImage({
     'g_south_west',
     `x_${textLeftOffset}`,
     `y_${titleBottomOffset}`,
-    `l_text:${titleFont}_${titleFontSize}${titleExtraConfig}:${encodeURIComponent(
+    `l_text:${titleFont}_${titleFontSize}_bold_${titleExtraConfig}:${encodeURIComponent(
       title
     )}`,
   ].join(',');
@@ -104,8 +106,8 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     const testImage = generateSocialImage({
       title,
       tagline,
-      cloudName: 'dobfxs62e',
-      imagePublicID: 'example-template',
+      cloudName: 'jsjoeio',
+      imagePublicID: 'eb-template',
     });
     // Write our code here.
     res.status(200).json({ url: testImage });
