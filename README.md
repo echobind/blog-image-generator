@@ -79,3 +79,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Acknowledgements
 
 - ["Automatically Generate Social Images for Blog Posts"](https://www.learnwithjason.dev/blog/auto-generate-social-image/) by [@jlengstorf](https://github.com/jlengstorf)
+
+## TODOS
+
+- [ ] Create Cloudinary account for Echobind
+- [ ] Change `cloudName: 'jsjoeio'` to Echobind's cloud name
+- [ ] Upload template image to Echobind's Cloudinary and name it 'eb-template' or change `imagePublicID` in function. Here is the [link to my image to download it](https://res.cloudinary.com/jsjoeio/image/upload/v1578506666/eb-template.jpg)
