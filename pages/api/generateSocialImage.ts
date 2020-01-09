@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
+// Source: https://github.com/jlengstorf/get-share-image/blob/master/src/index.ts
 interface Config {
   title: string;
   tagline: string;
@@ -32,15 +33,16 @@ function generateSocialImage({
   titleExtraConfig = '',
   taglineExtraConfig = '',
   taglineFont = 'Lato',
-  imageWidth = 1280,
-  imageHeight = 669,
-  textAreaWidth = 760,
-  textLeftOffset = 480,
-  titleBottomOffset = 254,
-  taglineTopOffset = 445,
+  imageWidth = 640,
+  imageHeight = 335,
+  textAreaWidth = 389,
+  textLeftOffset = 216,
+  // 127
+  titleBottomOffset = 135,
+  taglineTopOffset = 205,
   textColor = 'ffffff',
-  titleFontSize = 64,
-  taglineFontSize = 48,
+  titleFontSize = 32,
+  taglineFontSize = 24,
   version = null,
 }: Config): string {
   // configure social media image dimensions, quality, and format
@@ -102,14 +104,13 @@ function generateSocialImage({
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
   if (req.body) {
-    const { title, tagline } = req.body;
+    const { title = '', tagline = '' } = req.body;
     const testImage = generateSocialImage({
       title,
       tagline,
       cloudName: 'jsjoeio',
       imagePublicID: 'eb-template',
     });
-    // Write our code here.
     res.status(200).json({ url: testImage });
   } else {
     res.status(404).json({ message: 'Missing body' });

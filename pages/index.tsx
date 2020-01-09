@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import { ThemeProvider, Button, Input, FormControl, FormLabel, FormErrorMessage, FormHelperText, Box } from "@chakra-ui/core";
+import { ThemeProvider, CSSReset, Heading, Button, Input, FormControl, FormLabel, FormErrorMessage, FormHelperText, Box, Text } from "@chakra-ui/core";
 import { customTheme } from '../utils/theme';
 
 const Home = () => {
@@ -81,36 +81,47 @@ const Home = () => {
 
   return (
     <ThemeProvider theme={customTheme}>
-      <div className='main-app'>
+      <CSSReset />
+      <Box className='main-app'>
         <Head>
           <title>Home</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <div className="hero">
-          <h1 className="title">Echobind's Social Image Generator</h1>
-          <p className="description">Use our template to generate a social media image in no time!</p>
+        <Box marginTop={20}>
+          <Box textAlign="center" my={5}>
+            <Heading as="h1" marginBottom={3}>Echobind's Social Image Generator</Heading>
+            <Text>Use our template to generate a social media image in no time!</Text>
+          </Box>
 
           <Box display="flex" flexDirection="column" alignItems="center" marginX="auto">
             <FormControl maxWidth={700}>
-              <FormLabel htmlFor="title">Title:</FormLabel>
-              <Input type="text" placeholder="Finding Joy in Automated Tests" value={title} onChange={(e) => setTitle(e.target.value)} />
-              <FormHelperText id="title-helper-text">The title of the blog post.</FormHelperText>
-              <FormLabel htmlFor="tagline">Tagline:</FormLabel>
-              <Input type="text" placeholder="Add joy to your dev process with automated e2e tests." value={tagline} onChange={(e) => setTagline(e.target.value)} />
-              <FormHelperText id="tagline-helper-text">A short tagline describing the blog post.</FormHelperText>
-              <Button isLoading={loading} onClick={handleFormSubmit}>Generate image</Button>
+              <Box display="flex" flexDirection="row" marginTop={2}>
+                <Box marginRight={3}>
+                  <FormLabel htmlFor="title">Title:</FormLabel>
+                  <Input type="text" placeholder="Finding Joy in Automated Tests" value={title} onChange={(e) => setTitle(e.target.value)} />
+                  <FormHelperText id="title-helper-text">The title of the blog post.</FormHelperText>
+                </Box>
+                <Box marginLeft={3}>
+                  <FormLabel htmlFor="tagline">Tagline:</FormLabel>
+                  <Input type="text" placeholder="Add joy to your dev process with automated e2e tests." value={tagline} onChange={(e) => setTagline(e.target.value)} />
+                  <FormHelperText id="tagline-helper-text">A short tagline describing the blog post.</FormHelperText>
+                </Box>
+              </Box>
+              <Box display="flex" justifyContent="center" marginTop={5}>
+                <Button marginTop={2} isLoading={loading} onClick={handleFormSubmit}>Generate image</Button>
+              </Box>
             </FormControl>
-            <Box marginLeft={2} marginTop={2} position="relative">
+            <Box marginLeft={2} marginTop={10} position="relative">
               {
                 success &&
                 <Button position="absolute" zIndex={2} top={0} right={0} onClick={download} marginLeft={2} maxWidth={100}>Download</Button>
               }
               <img style={{ display: 'none' }} ref={imgRef} src={generatedImage} alt="generated social image." />
-              <canvas ref={canvasRef} width="1280" height="669" />
+              <canvas ref={canvasRef} width="640" height="335" />
             </Box>
           </Box>
-        </div>
+        </Box>
 
         <style jsx>{`
       .main-app {
@@ -162,7 +173,7 @@ const Home = () => {
         color: #333;
       }
     `}</style>
-      </div>
+      </Box>
     </ThemeProvider >
   )
 }
