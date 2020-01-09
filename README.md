@@ -39,6 +39,7 @@ This is a simple tool we made to save time when creating images to accompany blo
 ### Built With
 
 - [Next.js](https://nextjs.org)
+- [TypeScript](https://typescriptlang.org/)
 - [Chakra UI](https://chakra-ui.com/)
 
 <!-- GETTING STARTED -->
