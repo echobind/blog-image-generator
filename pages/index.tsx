@@ -90,7 +90,7 @@ const Home = () => {
 
         <Box marginTop={20}>
           <Box textAlign="center" my={5}>
-            <Heading as="h1" marginBottom={3}>Echobind's Social Image Generator</Heading>
+            <Heading as="h1" marginBottom={3}>Echobind's Blog Image Generator</Heading>
             <Text>Use our template to generate a social media image in no time!</Text>
           </Box>
 
