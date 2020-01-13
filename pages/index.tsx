@@ -9,6 +9,7 @@ const Home = () => {
   const [tagline, setTagline] = React.useState('')
   const [loading, setIsLoading] = React.useState(false)
   const [success, setSuccess] = React.useState(false)
+  const [error, setError] = React.useState(null)
   const [generatedImage, setGeneratedImage] = React.useState('')
   const canvasRef = React.useRef<null | HTMLCanvasElement>()
   const imgRef = React.useRef<null | HTMLImageElement>()
@@ -30,6 +31,12 @@ const Home = () => {
   }
 
   async function handleFormSubmit(e) {
+    if (!isFormValid()) {
+      setError('You must fill out both fields.')
+      return
+    } else {
+      setError(null)
+    }
     console.log('submitting form')
     setSuccess(false)
     setIsLoading(true)
@@ -54,6 +61,13 @@ const Home = () => {
 
     }
   }
+
+  function isFormValid() {
+    // If there is not title or tagline
+    // the form is invalid
+    return (!title || !tagline) ? false : true;
+  }
+
 
   // Source: https://codepen.io/joseluisq/pen/mnkLu
   function download() {
@@ -97,20 +111,21 @@ const Home = () => {
           <Box display="flex" flexDirection="column" alignItems="center" marginX="auto">
             <FormControl maxWidth={700}>
               <Box display="flex" flexDirection="row" marginTop={2}>
-                <Box marginRight={3}>
+                <FormControl isRequired marginRight={3}>
                   <FormLabel htmlFor="title">Title:</FormLabel>
                   <Input type="text" placeholder="Finding Joy in Automated Tests" value={title} onChange={(e) => setTitle(e.target.value)} />
                   <FormHelperText id="title-helper-text">The title of the blog post.</FormHelperText>
-                </Box>
-                <Box marginLeft={3}>
+                </FormControl>
+                <FormControl isRequired marginLeft={3}>
                   <FormLabel htmlFor="tagline">Tagline:</FormLabel>
                   <Input type="text" placeholder="Add joy to your dev process with automated e2e tests." value={tagline} onChange={(e) => setTagline(e.target.value)} />
                   <FormHelperText id="tagline-helper-text">A short tagline describing the blog post.</FormHelperText>
-                </Box>
+                </FormControl>
               </Box>
               <Box display="flex" justifyContent="center" marginTop={5}>
                 <Button marginTop={2} isLoading={loading} onClick={handleFormSubmit}>Generate image</Button>
               </Box>
+              <Text marginTop={2} color="tomato" textAlign="center">{error}</Text>
             </FormControl>
             <Box marginLeft={2} marginTop={10} position="relative">
               {
