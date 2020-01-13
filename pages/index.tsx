@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import { saveAs } from 'file-saver'
 import { ThemeProvider, CSSReset, Heading, Button, Input, FormControl, FormLabel, FormErrorMessage, FormHelperText, Box, Text } from "@chakra-ui/core";
 import { customTheme } from '../utils/theme';
 
@@ -69,28 +70,10 @@ const Home = () => {
   }
 
 
-  // Source: https://codepen.io/joseluisq/pen/mnkLu
-  function download() {
-    /// create an "off-screen" anchor tag
-    var lnk = document.createElement('a'), e;
-
-    /// the key here is to set the download attribute of the a tag
-    lnk.download = 'social-image.png';
-
-    /// convert canvas content to data-uri for link. When download
-    /// attribute is set the content pointed to by link will be
-    /// pushed as "download" in HTML5 capable browsers
-    lnk.href = canvasRef.current.toDataURL("image/png;base64")
-
-    /// create a "fake" click-event to trigger the download
-    if (document.createEvent) {
-      e = document.createEvent("MouseEvents")
-      e.initMouseEvent("click", true, true, window,
-        0, 0, 0, 0, 0, false, false, false,
-        false, 0, null);
-
-      lnk.dispatchEvent(e)
-    }
+  function saveDownload() {
+    canvasRef.current.toBlob((data) => {
+      saveAs(data, 'social-image.png')
+    })
   }
 
   return (
@@ -130,9 +113,9 @@ const Home = () => {
             <Box marginLeft={2} marginTop={10} position="relative">
               {
                 success &&
-                <Button position="absolute" zIndex={2} top={0} right={0} onClick={download} marginLeft={2} maxWidth={100}>Download</Button>
+                <Button position="absolute" zIndex={2} top={0} right={0} onClick={saveDownload} marginLeft={2} maxWidth={100}>Download</Button>
               }
-              <img style={{ display: 'none' }} ref={imgRef} src={generatedImage} alt="generated social image." />
+              <img style={{ display: 'none' }} ref={imgRef} src={generatedImage} alt="generated social image." crossOrigin="anonymous" />
               <canvas ref={canvasRef} width="640" height="335" />
             </Box>
           </Box>
