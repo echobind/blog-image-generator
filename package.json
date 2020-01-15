@@ -11,6 +11,7 @@
     "@chakra-ui/core": "^0.5.2",
     "@emotion/core": "^10.0.27",
     "@emotion/styled": "^10.0.27",
+    "@jlengstorf/get-share-image": "^0.4.0",
     "emotion-theming": "^10.0.27",
     "file-saver": "^2.0.2",
     "next": "9.1.7",

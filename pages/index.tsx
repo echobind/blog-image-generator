@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import { saveAs } from 'file-saver'
+import getSharingImage from '@jlengstorf/get-share-image'
 import { ThemeProvider, CSSReset, Heading, Button, Input, FormControl, FormLabel, FormErrorMessage, FormHelperText, Box, Text } from "@chakra-ui/core";
 import { customTheme } from '../utils/theme';
 
@@ -16,7 +17,6 @@ const Home = () => {
   const imgRef = React.useRef<null | HTMLImageElement>()
 
   function drawImage() {
-    console.log('drawing image')
     const canvas = canvasRef.current
     const ctx = canvas && canvas.getContext('2d')
     const img = imgRef.current
@@ -38,28 +38,35 @@ const Home = () => {
     } else {
       setError(null)
     }
-    console.log('submitting form')
     setSuccess(false)
     setIsLoading(true)
     e.preventDefault()
     try {
-      // make call to api
-      const response = await fetch('/api/generateSocialImage', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ title, tagline })
-      })
+      // get image
+      const imageURL = getSharingImage({
+        title,
+        tagline,
+        cloudName: 'jsjoeio',
+        imagePublicID: 'eb-template',
+        titleFont: 'Lato',
+        taglineFont: 'Lato',
+        titleExtraConfig: '_bold',
+        imageWidth: 640,
+        imageHeight: 335,
+        titleBottomOffset: 135,
+        taglineTopOffset: 205,
+        textAreaWidth: 389,
+        textLeftOffset: 216,
+        textColor: 'ffffff',
+        titleFontSize: 32,
+        taglineFontSize: 24,
+      });
 
-      const data = await response.json();
-      // set image url
-      await setGeneratedImage(data.url)
+      setGeneratedImage(imageURL)
 
       drawImage()
     } catch (error) {
-      console.error(error, 'oops')
-
+      console.error(error, 'something went wrong')
     }
   }
 

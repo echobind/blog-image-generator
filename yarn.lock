@@ -1018,6 +1018,11 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
+"@jlengstorf/get-share-image@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@jlengstorf/get-share-image/-/get-share-image-0.4.0.tgz#b02a7e7a752dc8de95300736c96188df84f739d7"
+  integrity sha512-7Bxm38Uf+zgSEca60J7jOtA2Z3pzAI4sp3+HrlXpFAqgxX83LStbRWHG7WHoVKfgv2aOXrQSU/32jMaFTHb2Uw==
+
 "@reach/alert@^0.1.2":
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/@reach/alert/-/alert-0.1.5.tgz#4da79add0055fa4295f51e5295ed3b80257e9153"
